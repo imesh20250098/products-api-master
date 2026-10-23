@@ -7,6 +7,10 @@ public class Product {
 
     public Product(Long id, String laptop, double v) {}
 
+    public Product() {
+
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

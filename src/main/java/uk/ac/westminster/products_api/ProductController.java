@@ -32,6 +32,12 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
+    @PostMapping("/digital")
+    public DigitalProduct addDigitalProduct(
+            @RequestBody DigitalProduct product) {
+        return (DigitalProduct) productService.addProduct(product);
+    }
+
     @GetMapping("/search")
     public List<Product> search(@RequestParam String name) {
         return productService.findByName(name);
