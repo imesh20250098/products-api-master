@@ -16,7 +16,7 @@ import java.time.LocalDate;
  */
 
 @RestController
-public class HelloController {
+public abstract class HelloController {
 
     @GetMapping("/hello")
     public String hello(){
@@ -29,9 +29,10 @@ public class HelloController {
     }
 
     @GetMapping("/goodbye")
-    public String goodbye(){
-        return "Goodbye from Spring Boots!";
+    public String goodbye() {
+        return null;
     }
+
 
     // TODO (Activity 3): add your /goodbye endpoint here.
 

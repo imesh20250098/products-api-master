@@ -1,52 +1,71 @@
 package uk.ac.westminster.products_api;
 
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
 
     private final List<Product> products = new ArrayList<>();
-    private Long nextId = 1L;
 
     public ProductService() {
-        products.add(new DigitalProduct(
-                nextId++, "Clean Code (E-book)", 29.99,
-                "/downloads/clean-code.pdf", 4.2
-        ));
 
-        products.add(new PhysicalProduct(
-                nextId++, "27-inch Monitor", 249.99,
-                5.4, "61cm x 41cm x 18cm"
-        ));
+        products.add(
+                new DigitalProduct(
+                        1L,
+                        "E-book",
+                        9.99,
+                        "/dl/1",
+                        4.2
+                )
+        );
+
+        products.add(
+                new PhysicalProduct(
+                        2L,
+                        "Mug",
+                        8.50,
+                        0.35,
+                        "10 x 8 x 8 cm"
+                )
+        );
     }
 
+    // Return all products.
     public List<Product> getAllProducts() {
         return products;
     }
 
-    public Optional<Product> getProductById(Long id) {
-        return products.stream()
-                .filter(product -> product.getId().equals(id))
-                .findFirst();
+    // Find a product using its ID.
+    public Product getProductById(Long id) {
+
+        for (Product product : products) {
+            if (product.getId().equals(id)) {
+                return product;
+            }
+        }
+
+        return null;
     }
 
+    // Add a new product.
     public Product addProduct(Product product) {
-        product.setId(nextId++);
         products.add(product);
         return product;
     }
 
-    public void deleteProduct(Long id) {
-        products.removeIf(product -> product.getId().equals(id));
-    }
+    // Return the summary of every product.
+    public List<String> getAllSummaries() {
 
-    public List<Product> findByName(String name) {
-        return products.stream()
-                .filter(product -> product.getName().contains(name))
-                .toList();
+        List<String> summaries = new ArrayList<>();
+
+        for (Product p : products) {
+            summaries.add(p.getSummary());
+        }
+
+        return summaries;
     }
 }
